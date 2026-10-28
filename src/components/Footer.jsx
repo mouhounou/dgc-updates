@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, MapPin, Phone, Clock } from "lucide-react";
+import { ArrowUp, BadgeCheck, ChartGantt, Clock, Cog, ExternalLink, HardHat, Mail, MapPin, Phone, Zap } from "lucide-react";
 import { FaTiktok, FaTelegram, FaLinkedin, FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ecoles, contactInfo, socials, valeurs } from "../data/site";
@@ -20,14 +20,56 @@ const navLinks = [
    { to: "/contact", label: "Contact" },
 ];
 
-const marqueeItems = [
-   "Commerce & Gestion",
-   "Informatique & Télécoms",
-   "Génie & Polytechnique",
-   "Certifications Pro",
-   "21 ans d'excellence",
-   "Pointe-Noire · Congo",
+// Bandeau défilant : certifications du CCPM, chacune ouvre sa pré-inscription sur ccpm.dgc-congo.org
+const CCPM = "https://ccpm.dgc-congo.org/date?programme=";
+const iconesDomaine = { electrique: Zap, mecanique: Cog, civil: HardHat, projet: ChartGantt };
+const certifications = [
+   { nom: "Cisco CCST IT Support", slug: "support-it" },
+   { nom: "Cisco CCNA", slug: "admin-reseaux" },
+   { nom: "Cisco Certified CyberOps Associate", slug: "cybersecurite" },
+   { nom: "Cisco CCST Networking", slug: "cloud" },
+   { nom: "Cisco CCNP Enterprise", slug: "expert-reseaux" },
+   { nom: "Électronique grand public, industrielle & embarquée", slug: "electronique-embarquee", domaine: "electrique" },
+   { nom: "Froid & climatisation", slug: "froid-climatisation", domaine: "electrique" },
+   { nom: "Électricité bâtiment & industrielle", slug: "electricite-batiment-industrielle", domaine: "electrique" },
+   { nom: "Automatisme, instrumentation & mesure", slug: "automatisme-instrumentation", domaine: "electrique" },
+   { nom: "GMAO", slug: "gmao", domaine: "mecanique" },
+   { nom: "Contrôle des matériaux (CND)", slug: "controle-materiaux-cnd", domaine: "mecanique" },
+   { nom: "Topographie", slug: "topographie", domaine: "civil" },
+   { nom: "DAO / CAO & structures", slug: "dao-cao-structures", domaine: "civil" },
+   { nom: "Microsoft Project", slug: "microsoft-project", domaine: "projet" },
 ];
+
+// Liste doublée pour une boucle continue ; la copie est masquée aux lecteurs d'écran
+function ListeCertifications({ copie }) {
+   return (
+      <ul className="flex shrink-0 items-center gap-3 pr-3" aria-hidden={copie || undefined}>
+         {certifications.map((c) => {
+            const Icon = c.domaine ? iconesDomaine[c.domaine] : BadgeCheck;
+            return (
+               <li key={c.slug}>
+                  <a
+                     href={CCPM + c.slug}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     tabIndex={copie ? -1 : undefined}
+                     className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white/85 transition-colors hover:bg-white/20 hover:text-white"
+                  >
+                     {c.domaine ? (
+                        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-second text-white">
+                           <Icon className="h-3.5 w-3.5" />
+                        </span>
+                     ) : (
+                        <Icon className="h-5 w-5 text-second" />
+                     )}
+                     {c.nom}
+                  </a>
+               </li>
+            );
+         })}
+      </ul>
+   );
+}
 
 // Colonnes : apparition au défilement, l'une après l'autre (même rythme que tout le site)
 const colReveal = (i) => apparition("haut", i * 0.1);
@@ -58,28 +100,16 @@ function Footer() {
             />
          </div>
 
-         {/* Marquee */}
-         {/* <div className="relative z-10 overflow-hidden border-y border-white/10 bg-white/5 py-4">
-            <div
-               className="flex w-max animate-marquee whitespace-nowrap"
-               style={{
-                  maskImage:
-                     "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
-                  WebkitMaskImage:
-                     "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
-               }}
-            >
-               {[...marqueeItems, ...marqueeItems].map((item, i) => (
-                  <span
-                     key={i}
-                     className="mx-6 flex items-center gap-6 text-sm font-semibold uppercase tracking-widest text-white/40"
-                  >
-                     {item}
-                     <span className="text-second">✦</span>
-                  </span>
-               ))}
+         {/* Certifications : défilement continu, pause au survol */}
+         <div className="relative z-10 border-b border-white/10 bg-white/5 py-5">
+            <p className="sr-only">Nos certifications</p>
+            <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
+               <div className="marquee-track flex w-max">
+                  <ListeCertifications />
+                  <ListeCertifications copie />
+               </div>
             </div>
-         </div> */}
+         </div>
 
          {/* Corps */}
          <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-16">
@@ -186,6 +216,16 @@ function Footer() {
                            </Link>
                         </li>
                      ))}
+                     <li>
+                        <a
+                           href="https://examcademy.com/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1.5 text-white/70 transition-all hover:translate-x-1 hover:text-white"
+                        >
+                           Examcademy <ExternalLink className="h-3.5 w-3.5" />
+                        </a>
+                     </li>
                   </ul>
                </motion.div>
 
