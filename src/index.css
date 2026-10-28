@@ -118,7 +118,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 /* Bandeau de certifications du footer : pause au survol, coupé si l'utilisateur réduit les animations */
-.marquee-track { animation: marquee 45s linear infinite; }
+.marquee-track { animation: marquee 60s linear infinite; }
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
