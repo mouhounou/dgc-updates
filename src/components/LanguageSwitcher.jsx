@@ -20,6 +20,20 @@ function readLangFromCookie() {
    return m ? decodeURIComponent(m[1]) : "fr";
 }
 
+// Écrit (ou efface pour le français) le cookie googtrans sur le domaine courant et
+// ses parents : Google Translate le lit au chargement et traduit toute la page.
+function writeLangCookie(code) {
+   const host = window.location.hostname;
+   const parts = host.split(".");
+   const domains = ["", host, `.${host}`];
+   if (parts.length > 2) domains.push(`.${parts.slice(-2).join(".")}`);
+   const value = code === "fr" ? "" : `/fr/${code}`;
+   const expires = code === "fr" ? "; expires=Thu, 01 Jan 1970 00:00:00 GMT" : "";
+   domains.forEach((d) => {
+      document.cookie = `googtrans=${value}${expires}; path=/${d ? `; domain=${d}` : ""}`;
+   });
+}
+
 function LanguageSwitcher() {
    const [open, setOpen] = useState(false);
    const [current, setCurrent] = useState("fr");
@@ -63,27 +77,21 @@ function LanguageSwitcher() {
       return () => document.removeEventListener("mousedown", onClick);
    }, []);
 
+   // Piloter le <select> caché de Google casse le widget au retour vers le français
+   // (la langue d'origine) : les changements suivants ne s'appliquent plus.
+   // On passe donc par le cookie puis on recharge : fiable dans tous les sens.
    const changeLang = (code) => {
-      setCurrent(code);
       setOpen(false);
-
-      // Applique via le <select> caché du widget Google
-      const trySet = (attempt = 0) => {
-         const select = document.querySelector(".goog-te-combo");
-         if (select) {
-            select.value = code;
-            select.dispatchEvent(new Event("change"));
-         } else if (attempt < 20) {
-            setTimeout(() => trySet(attempt + 1), 150);
-         }
-      };
-      trySet();
+      if (code === current) return;
+      writeLangCookie(code);
+      window.location.reload();
    };
 
    const active = LANGS.find((l) => l.code === current) || LANGS[0];
 
    return (
-      <div className="relative" ref={ref}>
+      // notranslate : Google ne doit pas traduire les noms de langues du menu
+      <div className="relative notranslate" translate="no" ref={ref}>
          {/* Élément Google caché (moteur) */}
          <div id="google_translate_element" className="gt-hidden" />
 
