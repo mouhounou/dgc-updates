@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+   --font-primary: 'Lilita One', cursive;
+   --font-secondary: 'Kaushan Script', cursive;
+   --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+   --color-first: #0a4275;
+   --color-first-light: #0f5596;
+   --color-second: #e69112;
+   --color-second-light: #f4a72c;
+
+   /* Surfaces neutres (esthétique claire et aérée du modèle) */
+   --color-ink: #0c1a2b;
+   --color-muted: #5b6b7d;
+   --color-surface: #f6f8fb;
+   --color-line: #e6ebf1;
+}
+
+* {
+   scroll-behavior: smooth;
+}
+
+body {
+   font-family: var(--font-sans);
+   color: var(--color-ink);
+   background-color: #ffffff;
+   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+   font-family: var(--font-primary);
+   letter-spacing: 0.2px;
+}
+
+/* ── Utilitaires réutilisables ─────────────────────────────── */
+
+/* Eyebrow / section label en pilule */
+.eyebrow {
+   display: inline-flex;
+   align-items: center;
+   gap: 0.5rem;
+   padding: 0.4rem 0.9rem;
+   border-radius: 9999px;
+   border: 1px solid var(--color-line);
+   background: #ffffff;
+   font-size: 0.75rem;
+   font-weight: 700;
+   letter-spacing: 0.14em;
+   text-transform: uppercase;
+   color: var(--color-first);
+   font-family: var(--font-sans);
+}
+
+/* Carte de base */
+.card-soft {
+   background: #ffffff;
+   border: 1px solid var(--color-line);
+   border-radius: 1.25rem;
+   box-shadow: 0 1px 2px rgba(12, 26, 43, 0.04),
+      0 12px 30px -18px rgba(12, 26, 43, 0.18);
+}
+
+/* Bande sombre (CTA) aux couleurs DGC */
+.band-dark {
+   background:
+      radial-gradient(1200px 400px at 15% -20%, rgba(230, 145, 18, 0.18), transparent 60%),
+      linear-gradient(180deg, #0a4275 0%, #06325b 100%);
+}
+
+/* Halo décoratif doux */
+.blob {
+   position: absolute;
+   border-radius: 9999px;
+   filter: blur(60px);
+   opacity: 0.5;
+   pointer-events: none;
+}
+
+/* ── Animations existantes (slideshow hero) ────────────────── */
+@keyframes slide {
+   0% { opacity: 0; }
+   8% { opacity: 1; }
+   25% { opacity: 1; }
+   32% { opacity: 0; }
+   100% { opacity: 0; }
+}
+.animate-slide-1 { animation: slide 75s infinite; animation-delay: 0s; }
+.animate-slide-2 { animation: slide 75s infinite; animation-delay: 15s; }
+.animate-slide-3 { animation: slide 75s infinite; animation-delay: 30s; }
+.animate-slide-4 { animation: slide 75s infinite; animation-delay: 45s; }
+.animate-slide-5 { animation: slide 75s infinite; animation-delay: 60s; }
+
+@keyframes fadecycle {
+   0% { opacity: 0; }
+   10% { opacity: 1; }
+   50% { opacity: 1; }
+   90% { opacity: 0; }
+   100% { opacity: 0; }
+}
+@keyframes fadein {
+   0% { opacity: 1; }
+   100% { opacity: 1; }
+}
+.animate-fadecycle { animation: fadecycle 40s infinite; }
+.animate-fadein { animation: fadein 40s infinite; }
+
+@keyframes marquee {
+   from { transform: translateX(0); }
+   to { transform: translateX(-50%); }
+}
+.animate-marquee {
+   animation: marquee 28s linear infinite;
+}
+
+/* Scrollbar fine (modal vidéos) */
+.video-scroll {
+   scrollbar-width: thin;
+   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.video-scroll::-webkit-scrollbar {
+   width: 6px;
+}
+.video-scroll::-webkit-scrollbar-thumb {
+   background: rgba(255, 255, 255, 0.2);
+   border-radius: 10px;
+}
+.video-scroll::-webkit-scrollbar-thumb:hover {
+   background: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Google Translate (moteur caché, UI custom à drapeaux) ─── */
+/* Neutralise la bannière et le décalage du body injectés par Google */
+body { top: 0 !important; }
+.goog-te-banner-frame,
+.skiptranslate > iframe { display: none !important; }
+
+/* Cache totalement le widget Google (on garde notre dropdown à drapeaux) */
+.gt-hidden {
+   position: absolute !important;
+   width: 1px;
+   height: 1px;
+   overflow: hidden;
+   clip: rect(0 0 0 0);
+   opacity: 0;
+   pointer-events: none;
+}
+
+/* Google ajoute parfois un surlignage sur les mots traduits — on neutralise */
+.goog-text-highlight {
+   background: none !important;
+   box-shadow: none !important;
+}

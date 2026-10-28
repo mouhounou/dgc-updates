@@ -1,0 +1,35 @@
+# Groupe DGC-Formation
+
+> Groupe d'enseignement supérieur privé basé à Pointe-Noire (République du Congo), fondé en 2004. Il réunit 4 écoles (ESGC, ESIT, ESUP, CCPM) et propose un cycle Master (Bac+5) en comptabilité, contrôle de gestion, audit et finance. Établissement agréé sous le n°016/MES-CAB-DGESUP-DAAC.
+
+- Adresse : Zone industrielle, 87 Rue Gamba, en face du Lycée Victor Augagneur, Pointe-Noire, République du Congo
+- Téléphone secrétariat : +242 05 796 08 50 · Recrutement : +242 05 092 74 23
+- Email : contact@dgc-congo.org
+- Horaires : lundi–vendredi 8h–17h, samedi 9h–13h
+- Langue d'enseignement : français
+
+## Masters (Bac+5, 120 crédits ECTS, rentrée en octobre, année 2027-2028)
+
+Tronc commun en Master 1 (comptabilité SYSCOHADA révisé et IFRS, contrôle de gestion, audit et contrôle interne, finance, droit OHADA et fiscalité CEMAC, ERP et data analysis), puis une spécialisation en Master 2. 1 146 heures d'enseignement encadré, stage de 4 semaines en M1, stage de 4 à 6 mois en M2, mémoire professionnel. Présentiel intensif ou alternance. Promotions de 20 à 35 étudiants.
+
+- [Master Audit et Contrôle interne](https://www.dgc-congo.org/masters/audit-controle-interne): audit interne et externe, gestion des risques (ERM), commissariat aux comptes, préparation CIA. Métiers : auditeur, responsable audit interne, risk manager.
+- [Master Contrôle de gestion et Pilotage de la performance](https://www.dgc-congo.org/masters/controle-de-gestion): contrôle de gestion sectoriel, Business Intelligence, RSE/ESG, pilotage par objectifs. Métiers : contrôleur de gestion, analyste de performance.
+- [Master Comptabilité, Fiscalité et Normes internationales](https://www.dgc-congo.org/masters/comptabilite-fiscalite): expertise comptable (DSCG/DEC), fiscalité internationale, IFRS avancées. Métiers : chef comptable, fiscaliste, futur expert-comptable.
+- [Master Finance d'entreprise et Trésorerie](https://www.dgc-congo.org/masters/finance-tresorerie): ingénierie financière, évaluation, trésorerie, financement de projets, risques financiers. Métiers : responsable trésorerie, analyste financier.
+- [Tous les masters](https://www.dgc-congo.org/masters)
+
+Admission en Master 1 : Licence (Bac+3, 180 ECTS) en gestion, comptabilité, finance, audit, économie, administration des entreprises ou commerce, ou diplôme équivalent ; étude du dossier, test écrit et entretien. Entrée directe en Master 2 : Master 1 ou Bac+4 compatible (60 ECTS), ou VAE avec au moins 3 ans d'expérience pertinente.
+
+## Écoles
+
+- ESGC — École Supérieure de Gestion & Commerce : cycle Licence en comptabilité et gestion, ressources humaines, banque et assurance, relation client, logistique et commerce international. http://esgc.dgc-congo.org
+- ESIT — École Supérieure d'Informatique & Télécoms : génie logiciel, réseaux et sécurité, télécommunications, infographie et web design, maintenance, automatisme. https://esit.dgc-congo.org
+- ESUP — École Supérieure Polytechnique : génie industriel, génie civil, génie thermique et énergétique, qualité et logistique industrielle, génie pétrolier et minier. http://esup.dgc-congo.org
+- CCPM — Centre de Certifications & Professionnalisation aux Métiers : formations courtes et certifications (Oracle, Cisco, MikroTik, CompTIA). https://ccpm.dgc-congo.org
+
+## Pages utiles
+
+- [Accueil](https://www.dgc-congo.org/)
+- [À propos du groupe](https://www.dgc-congo.org/a-propos)
+- [Préinscription (Licence et formations courtes)](https://www.dgc-congo.org/preinscription)
+- [Contact et questions fréquentes](https://www.dgc-congo.org/contact)

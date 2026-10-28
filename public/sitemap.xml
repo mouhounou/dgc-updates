@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Sitemap du Groupe DGC-Formation.
+   À mettre à jour quand une page est ajoutée (ex. un nouveau master dans src/data/masters.js)
+   et changer <lastmod> quand le contenu d'une page change.
+   Les pages de préinscription (formulaires) ne sont volontairement pas listées.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://www.dgc-congo.org/</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+   </url>
+
+   <!-- Cycle Master -->
+   <url>
+      <loc>https://www.dgc-congo.org/masters</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/masters/audit-controle-interne</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/masters/controle-de-gestion</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/masters/comptabilite-fiscalite</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/masters/finance-tresorerie</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+
+   <!-- Institution et admissions -->
+   <url>
+      <loc>https://www.dgc-congo.org/a-propos</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/preinscription</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.dgc-congo.org/contact</loc>
+      <lastmod>2026-10-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+</urlset>
