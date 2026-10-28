@@ -36,6 +36,7 @@ import {
 import { masters, anneeRentree } from "../data/masters";
 import { stories } from "../assets";
 import ThreeParticles from "../components/ThreeParticles";
+import CertificationsDefilantes from "../components/CertificationsDefilantes";
 
 const heroMain = stories[15]?.src || stories[0].src;
 
@@ -82,7 +83,7 @@ function Home() {
             {/* Particules Three.js interactives (parallax souris) */}
             <ThreeParticles />
 
-            <Container className="relative z-10 py-24">
+            <Container className="relative z-10 pt-24 pb-36">
                <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0">
                   {masters.length > 0 && (
                      <Reveal i={0}>
@@ -150,6 +151,11 @@ function Home() {
                   </Reveal>
                </div>
             </Container>
+
+            {/* Certifications qui défilent en bas du hero */}
+            <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10 bg-first/40 backdrop-blur-sm py-4">
+               <CertificationsDefilantes />
+            </div>
          </section>
 
          {/* ── 1. NOS ÉCOLES (cycle Licence) ───────────────── */}
