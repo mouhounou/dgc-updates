@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
@@ -20,6 +20,7 @@ import {
 import { Container, PageHero, Eyebrow, Reveal } from "../components/ui";
 import { SEO, buildFaqJsonLd } from "../lib/SEO";
 import { contactInfo } from "../data/site";
+import Turnstile from "../components/Turnstile";
 import { verifEmail, verifTel, ERR_INPUT, attrsErreur, signalerErreurs } from "../lib/validation";
 
 // Validation du formulaire de contact
@@ -123,6 +124,8 @@ function Contact() {
    const [openFaq, setOpenFaq] = useState(0);
    const [erreurs, setErreurs] = useState({});
    const [tente, setTente] = useState(false); // une soumission a déjà été tentée
+   const [captcha, setCaptcha] = useState(""); // jeton Cloudflare Turnstile
+   const turnstile = useRef(null);
 
    // Après une tentative, le rouge disparaît dès qu'un champ est corrigé
    const onChange = (e) => {
@@ -140,11 +143,15 @@ function Contact() {
          signalerErreurs(verif, ORDRE_CONTACT);
          return;
       }
+      if (!captcha) {
+         toast.error("Merci de confirmer que vous n'êtes pas un robot.");
+         return;
+      }
       setLoading(true);
       try {
          const res = await axios.post(
             "https://api.dgc.informatiky.com/api/mail/mailler",
-            { ...form, site: "dgc" } // e-mails envoyés au nom du Groupe DGC-Formation
+            { ...form, site: "dgc", turnstileToken: captcha } // e-mails au nom du Groupe DGC-Formation ; jeton vérifié par l'API
          );
          if (res.data.success) {
             toast.success("Votre message a bien été envoyé !");
@@ -155,9 +162,10 @@ function Contact() {
             toast.error(res.data.message || "Une erreur est survenue.");
          }
       } catch (err) {
-         toast.error("Échec de l'envoi. Veuillez réessayer.");
+         toast.error(err?.response?.data?.message || "Échec de l'envoi. Veuillez réessayer.");
       } finally {
          setLoading(false);
+         turnstile.current?.reset(); // un jeton ne sert qu'une fois
       }
    };
 
@@ -325,6 +333,8 @@ function Contact() {
                               <textarea {...champ("message", "resize-none")} rows={4} placeholder="Comment pouvons-nous vous aider ?" />
                               {erreur("message")}
                            </div>
+
+                           <Turnstile ref={turnstile} onToken={setCaptcha} action="contact" />
 
                            <button
                               type="submit"

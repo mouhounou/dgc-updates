@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
+import Turnstile from "../components/Turnstile";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -266,6 +267,8 @@ function Preinscription() {
    // Une validation de l'étape en cours a déjà échoué : on revalide à chaque saisie,
    // pour que le rouge disparaisse dès qu'un champ est corrigé
    const [tente, setTente] = useState(false);
+   const [captcha, setCaptcha] = useState(""); // jeton Cloudflare Turnstile
+   const turnstile = useRef(null);
 
    const maj = (suivant) => {
       setF(suivant);
@@ -350,6 +353,10 @@ function Preinscription() {
             return;
          }
       }
+      if (!captcha) {
+         toast.error("Merci de confirmer que vous n'êtes pas un robot.");
+         return;
+      }
 
       setStatus("sending");
       try {
@@ -364,6 +371,7 @@ function Preinscription() {
             situationPro: f.situationPro,
             comments: f.comments,
             site: "dgc", // e-mails envoyés au nom du Groupe DGC-Formation
+            turnstileToken: captcha, // vérifié par l'API auprès de Cloudflare
          });
          setStatus("done");
          toast.success("Votre préinscription a bien été envoyée !");
@@ -376,6 +384,7 @@ function Preinscription() {
             reponseServeur: err?.response?.data,
          });
          setStatus("error");
+         turnstile.current?.reset(); // un jeton ne sert qu'une fois
          toast.error(err?.response?.data?.message || "Échec de l'envoi. Veuillez réessayer.");
       }
    }
@@ -745,6 +754,13 @@ function Preinscription() {
                         </motion.div>
                      </AnimatePresence>
                   </div>
+
+                  {/* Vérification anti-robot, à la dernière étape */}
+                  {etape === derniere && (
+                     <div className="px-6 sm:px-10 pb-5">
+                        <Turnstile ref={turnstile} onToken={setCaptcha} action="inscription" />
+                     </div>
+                  )}
 
                   {/* Barre de navigation */}
                   <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4 border-t border-line bg-surface px-6 sm:px-10 py-5">

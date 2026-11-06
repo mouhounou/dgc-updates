@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
+import Turnstile from "../components/Turnstile";
 import { Link, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -255,6 +256,8 @@ function MasterPreinscription() {
    // Une validation de l'étape en cours a déjà échoué : on revalide à chaque saisie,
    // pour que le rouge disparaisse dès qu'un champ est corrigé
    const [tente, setTente] = useState(false);
+   const [captcha, setCaptcha] = useState(""); // jeton Cloudflare Turnstile
+   const turnstile = useRef(null);
 
    if (!master) return <Navigate to="/masters" replace />;
 
@@ -346,6 +349,10 @@ function MasterPreinscription() {
             return;
          }
       }
+      if (!captcha) {
+         toast.error("Merci de confirmer que vous n'êtes pas un robot.");
+         return;
+      }
 
       setStatus("sending");
       try {
@@ -354,6 +361,8 @@ function MasterPreinscription() {
             ...f,
             parcours: f.parcours || master.titre,
             fait_le: today,
+            site: "dgc",
+            turnstileToken: captcha, // vérifié par l'API auprès de Cloudflare
          });
          setStatus("done");
          toast.success("Votre préinscription a bien été envoyée !");
@@ -367,6 +376,7 @@ function MasterPreinscription() {
             reponseServeur: err?.response?.data,
          });
          setStatus("error");
+         turnstile.current?.reset(); // un jeton ne sert qu'une fois
          toast.error(err?.response?.data?.message || "Échec de l'envoi. Veuillez réessayer.");
       }
    }
@@ -637,6 +647,13 @@ function MasterPreinscription() {
                         </motion.div>
                      </AnimatePresence>
                   </div>
+
+                  {/* Vérification anti-robot, à la dernière étape */}
+                  {etape === derniere && (
+                     <div className="px-6 sm:px-10 pb-5">
+                        <Turnstile ref={turnstile} onToken={setCaptcha} action="preinscription-master" />
+                     </div>
+                  )}
 
                   {/* Barre de navigation */}
                   <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4 border-t border-line bg-surface px-6 sm:px-10 py-5">
